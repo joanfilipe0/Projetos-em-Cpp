@@ -38,6 +38,11 @@ using namespace std;
  */
 class JogoPPT {
 public:
+
+	/* Variáveis locais para armazenar a quantidade de vitórias de cada um. */
+    static int vitoriasJogador;
+    static int vitoriasCPU;
+
 	/* Iniciar o jogo e fazer a comparação. */
 	void Jogar(int palpiteJogador) {
 		int palpiteCPU = SorteioCPU();
@@ -86,10 +91,12 @@ public:
 	void msgGanhou(string jogadaCPU, string jogadaJogador) {
 		cout << "Parabéns! Você ganhou!" << endl;
 		cout << "Você jogou " << jogadaJogador << " e o computador jogou " << jogadaCPU << "." << endl;
+		vitoriasJogador++;
 	}
 	void msgPerdeu(string jogadaCPU, string jogadaJogador) {
 		cout << "Que pena! Você perdeu!" << endl;
 		cout << "Você jogou " << jogadaJogador << " e o computador jogou " << jogadaCPU << "." << endl;
+		vitoriasCPU++;
 	}
 	void msgEmpatou(string jogadaCPU, string jogadaJogador) {
 		cout << "Oops! O jogo empatou!" << endl;
@@ -103,6 +110,10 @@ private:
 		return (rand() % 3) + 1;
 	}
 };
+
+/* Inicialize as variáveis estáticas da classe. */
+int JogoPPT::vitoriasJogador = 0;
+int JogoPPT::vitoriasCPU = 0;
 
 /* Método de inicialização do Jogo, pedindo um palpite ao 
  * usuário e iniciando o jogo.
@@ -135,11 +146,15 @@ int main(void) {
 
 	while(true) {
 		IniciarJogo();
-
+		
 		cout << endl << "Deseja jogar novamente? [S/n]: ";
 		cin >> escolha;
 
 		if (escolha == "n" || escolha == "N") {
+			
+			cout << "Resultados finais:" << endl;
+            cout << "Jogador: " << JogoPPT::vitoriasJogador << " vitórias" << endl;
+            cout << "Máquina: " << JogoPPT::vitoriasCPU << " vitórias" << endl;
 			cout << "Saindo..." << endl;
 			break;
 		}
